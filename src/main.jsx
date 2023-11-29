@@ -16,6 +16,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Details from "./components/Pages/Details/Details.jsx";
 import Dashboard from "./components/Layout/Root/Dashboard.jsx";
 import Allmeals from "./components/Pages/Dashboard/Allmeals/Allmeals.jsx";
+import Alluser from "./components/Pages/Dashboard/Alluser/Alluser.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "dashboard",
+    path: "/dashboard",
     element: (
       <PrivateRoute>
         <Dashboard></Dashboard>
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
         path: "/dashboard/allmeals",
         element: <Allmeals></Allmeals>,
       },
+      {
+        path: "/dashboard/manusers",
+        element: <Alluser></Alluser>,
+      },
+     
     ],
   },
 ]);

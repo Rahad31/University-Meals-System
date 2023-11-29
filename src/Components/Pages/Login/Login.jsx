@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/Provider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Helmet } from "react-helmet-async";
 import AuthProvider from "../../Provider/Provider";
 const Login = () => {
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,7 +21,22 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         e.target.reset();
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+          role: "Make Admin",
+          status: "Bronze",
+        };
+         fetch(`http://localhost:5000/users`, {
+           method: "POST",
+           headers: {
+             "content-type": "application/json",
+           },
+           body: JSON.stringify(userInfo),
+         });
+          
         toast("Successfull Login");
+        
         navigate("/");
       })
       .catch((error) => {
@@ -30,14 +47,32 @@ const Login = () => {
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-      .then((result) => {
-        console.log(result.user);
-        toast("Successfull Login");
-        navigate("/");
+    .then((result) => {
+      console.log(result.user);
+      navigate("/");
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        role: "Make Admin",
+        status: "Bronze",
+      };
+      fetch(`http://localhost:5000/users`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
       })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.insertedId) {
+            toast("Sucessfully Login");
+            navigate("/");
+          }
+        });
+      
+    });
   };
 
   return (

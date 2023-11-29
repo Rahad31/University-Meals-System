@@ -45,7 +45,33 @@ const Register = () => {
         .catch(() => {});
     }
   };
-
+  const handleGoogleSignIn = () => {
+    signInWithGoogle().then((result) => {
+      console.log(result.user);
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+        role: "Make Admin",
+        status: "Bronze",
+      };
+      fetch(`http://localhost:5000/users`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.insertedId) {
+            toast("Sucessfully Login");
+            navigate("/");
+          }
+        });
+    });
+  };
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
   return (
     <div className="flex justify-center items-center ">
       <div className="hero min-h-screen w-[600px] rounded-md bg-[#e2e8f0] ">
@@ -112,6 +138,14 @@ const Register = () => {
                 </div>
                 {/* </Link> */}
               </form>
+              <p>
+                <button
+                  onClick={handleGoogleSignIn}
+                  className="w-full btn btn-error bg-[#eaa334]"
+                >
+                  Log in with Google
+                </button>
+              </p>
               <p className="text-center">
                 {" "}
                 Already have account?

@@ -22,6 +22,7 @@ const Navbar = () => {
   //   const localtheme = localStorage.getItem("theme");
   //   document.querySelector("html").setAttribute("data-theme", localtheme);
   // });
+  
   const { user, logOut } = useContext(AuthContext);
   const handleLogOut = () => {
     logOut()
@@ -40,17 +41,9 @@ const Navbar = () => {
       {user && (
         <>
           <li>
-            <NavLink to="/addjob">Add A Job</NavLink>
+            <NavLink to="/dashboard">Dasboard</NavLink>
           </li>
-          <li>
-            <NavLink to="/myjobs">My Jobs</NavLink>
-          </li>
-          <li>
-            <NavLink to="/appliedjob">Applied Jobs</NavLink>
-          </li>
-          <li>
-            <NavLink to="/profile">User Profile</NavLink>
-          </li>
+         
         </>
       )}
     </>
