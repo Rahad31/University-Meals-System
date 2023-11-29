@@ -4,6 +4,7 @@ import { AuthContext } from "../../Provider/Provider";
 import { useLoaderData, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { NavLink, Link } from "react-router-dom";
+import Dashboard from "../../Layout/Root/Dashboard";
 
 const Navbar = () => {
   // const [theme, settheme] = useState(
@@ -35,12 +36,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/meal">Meals</NavLink>
       </li>
-     
-      {!user && (
-        <>
-          
-        </>
-      )}{" "}
+      {!user && <></>}{" "}
       {user && (
         <>
           <li>
@@ -98,21 +94,17 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navlinks}</ul>
         </div>
-     
+
         <div className="navbar-end gap-1 flex flex-col-reverse pl-10 pt- md:flex-row md:pl-0 md:pt-0">
-          
-             <NavLink to="/upcomingmeal">
+          <NavLink to="/upcomingmeal">
             <img
               className="h-[30px] w-[30px]"
               src="https://i.ibb.co/wd5kTrj/2474912.webp"
             ></img>
           </NavLink>
-          
-         
+
           {user ? (
             <>
-              
-
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost ">
                   <img
@@ -126,11 +118,12 @@ const Navbar = () => {
                 >
                   <li>{user.displayName}</li>
                   <li>
-                    <a>Item 2</a>
+                    <Link to="dashboard">
+                      {" "}
+                      <a>Dashboard</a>
+                    </Link>
                   </li>
-                  <li>
-                    <a>Item 2</a>
-                  </li>
+                  
                   <li onClick={handleLogOut}>
                     <a>Item 2</a>
                   </li>

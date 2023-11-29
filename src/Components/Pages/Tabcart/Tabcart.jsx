@@ -6,7 +6,7 @@ const Tabcart = ({ jobs }) => {
   // console.log({ name });
   return (
     <div>
-      <div className="flex justify-center items-center   rounded-md ">
+      <div className="flex justify-center items-center text-center  rounded-md ">
         <div className="h-[400px] w-[300px] rounded-md flex flex-col m-2  gap-2 border-2 border-black  bg-slate-200">
           <img
             src={image}
@@ -41,11 +41,13 @@ const Tabcart = ({ jobs }) => {
           <h3 className="text-center  text-[#120f0a]  font-semibold">
             Price : {price} ৳
           </h3>
-
-          <Link to={`/meal/${_id}`}>
+          <div>
             {" "}
-            <button className="btn btn-error w-[180px] ">Details</button>
-          </Link>
+            <Link to={`/meal/${_id}`}>
+              {" "}
+              <button className="btn btn-error w-[180px] mt-2 ">Details</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

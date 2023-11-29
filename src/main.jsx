@@ -14,6 +14,7 @@ import Allmeal from "./components/Pages/Allmeal/Allmeal.jsx";
 import PrivateRoute from "./components/Route/PrivateRoute/PrivateRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Details from "./components/Pages/Details/Details.jsx";
+import Dashboard from "./components/Layout/Root/Dashboard.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,10 +32,7 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
-      {
-        path: "/add",
-        element: <Add></Add>,
-      },
+    
       {
         path: "/meal",
         element: <Allmeal></Allmeal>,
@@ -42,11 +40,23 @@ const router = createBrowserRouter([
       {
         path: "/meal/:_id",
         loader: () => fetch("http://localhost:5000/meal"),
-        element: (
-          <PrivateRoute>
-            <Details></Details>
-          </PrivateRoute>
-        ),
+        element: <Details></Details>,
+      },
+    ],
+  },
+
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
+
+    children: [
+      {
+        path: "/dashboard/add",
+        element: <Add></Add>,
       },
     ],
   },

@@ -4,7 +4,13 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useLoaderData, useParams, Link } from "react-router-dom";
+import {
+  useLoaderData,
+  useParams,
+  Link,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Provider/Provider";
 import { useContext } from "react";
@@ -16,13 +22,12 @@ const Details = () => {
   const jobdetail = jobs.find((job) => job._id == _id);
 
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  let User = user.email;
   // console.log(jobdetail);
   const handleCart = () => {
     // savejob(idInt, User);
-    // // toast("Successfully Added to Cart");
-
+    // // toast("Successfully Added to Cart");   const image = jobdetail.image;
     const image = jobdetail.image;
     const name = jobdetail.name;
     const username = jobdetail.username;
@@ -32,35 +37,40 @@ const Details = () => {
     const price = jobdetail.price;
     const description = jobdetail.description;
     const review = jobdetail.rev;
-    const usernameadd = user.displayName;
-    const useremails = user.email;
-    let stats = "Pending";
-    const cart = {
-      image,
-      name,
-      usernameadd,
-      stats,
-      useremails,
-    };
 
-    console.log(cart);
-
-    // send data
-    fetch(`http://localhost:5000/reqmeal`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(cart),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
-          toast("Sucessfully requested");
-        }
-      });
+    if (!user) {
+      navigate("/login");
+    } else {
+      // send data
+      console.log("ok");
+      const usernameadd = user.displayName;
+      const useremails = user.email;
+      let stats = "Pending";
+      const cart = {
+        image,
+        name,
+        usernameadd,
+        stats,
+        useremails,
+      };
+      fetch(`http://localhost:5000/reqmeal`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(cart),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.insertedId) {
+            toast("Sucessfully requested");
+            navigate("/");
+          }
+        });
+    }
   };
+
   return (
     <div>
       <div className="flex  flex-col gap-1 justify-center items-center   rounded-md ">
@@ -141,14 +151,12 @@ const Details = () => {
 
               <div className="flex justify-center flex-col items-center md:mt-10">
                 {" "}
-                <Link className="flex flex-col" to="/">
-                  <button
-                    onClick={handleCart}
-                    className="btn btn-error mx-4 mb-4"
-                  >
-                    Request Meal
-                  </button>
-                </Link>
+                <button
+                  onClick={handleCart}
+                  className="btn btn-error mx-4 mb-4"
+                >
+                  Request Meal
+                </button>
               </div>
             </div>
           </div>

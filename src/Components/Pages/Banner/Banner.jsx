@@ -14,20 +14,19 @@ const Banner = () => {
         <h1 className="text-2xl text-[#EAA334]">
           Great minds need great meals
         </h1>
-        <label class="input-group">
+        <div className="join">
           <input
-            type="text"
-            placeholder="Search Food"
-            class="input input-bordered"
-            id="job"
+            id="search"
+            className="input input-bordered join-item"
+            placeholder="Search Meal"
           />
           <button
-            id="btn-apply"
-            class="btn btn-error text-xl font-semibold normal-case text-white"
+            
+            className="btn btn-error join-item rounded-r-md"
           >
             Search
           </button>
-        </label>
+        </div>
       </div>
     </div>
   );
