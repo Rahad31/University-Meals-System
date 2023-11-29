@@ -21,7 +21,7 @@ const Dashboard = () => {
   // const [isAdmin] = useAdmin();
 
   return (
-    <div className="flex container mx-auto">
+    <div className="flex ">
       {/* dashboard side bar */}
       <div className="w-64 min-h-screen bg-slate-200 ">
         <ul className="menu p-4">
@@ -40,13 +40,13 @@ const Dashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/add">
+              <NavLink to="/dashboard/add">
                 <FaUtensils></FaUtensils>
                 Add Meal
               </NavLink>
             </li>
             <li>
-              <NavLink to="/meal">
+              <NavLink to="/dashboard/allmeals">
                 <FaUtensils></FaUtensils>
                 All Meals
               </NavLink>
@@ -69,7 +69,6 @@ const Dashboard = () => {
                 Upcoming Meal
               </NavLink>
             </li>
-          
           </>
           {/* ) : ( */}
           <>
@@ -110,10 +109,7 @@ const Dashboard = () => {
           </li>
         </ul>
       </div>
-      <div className=" my-20 text-4xl font-semibold">
-        {" "}
-        Welocome to DashBoard
-      </div>
+
       {/* dashboard content */}
       <div className="flex-1 p-8">
         <Outlet></Outlet>
