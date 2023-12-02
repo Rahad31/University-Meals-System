@@ -17,6 +17,7 @@ import Details from "./components/Pages/Details/Details.jsx";
 import Dashboard from "./components/Layout/Root/Dashboard.jsx";
 import Allmeals from "./components/Pages/Dashboard/Allmeals/Allmeals.jsx";
 import Alluser from "./components/Pages/Dashboard/Alluser/Alluser.jsx";
+import Payment from "./components/Pages/Dashboard/Payment/Payment.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/meal/:_id",
-        loader: () => fetch("http://localhost:5000/meal"),
+        loader: () => fetch("https://uni-meal-server.vercel.app/meal"),
         element: <Details></Details>,
       },
     ],
@@ -68,7 +69,10 @@ const router = createBrowserRouter([
         path: "/dashboard/manusers",
         element: <Alluser></Alluser>,
       },
-     
+      {
+        path: "/dashboard/payment",
+        element: <Payment></Payment>
+      },
     ],
   },
 ]);

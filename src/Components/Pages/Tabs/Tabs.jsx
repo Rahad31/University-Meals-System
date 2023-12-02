@@ -8,16 +8,16 @@ const Tabs = () => {
 
   const [jobs, setjobs] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/meal")
+    fetch("https://uni-meal-server.vercel.app/meal")
       .then((res) => res.json())
       .then((data) => setjobs(data));
   }, []);
-  
+
   let Job1 = jobs.filter((job) => job.type == "Breakfast");
   // console.log(Job1);
   const [job, setjob] = useState(jobs);
   useEffect(() => {
-    fetch("http://localhost:5000/meal")
+    fetch("https://uni-meal-server.vercel.app/meal")
       .then((res) => res.json())
       .then((data) => setjob(data));
   }, []);

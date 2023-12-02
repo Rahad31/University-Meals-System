@@ -53,7 +53,7 @@ const Details = () => {
         stats,
         useremails,
       };
-      fetch(`http://localhost:5000/reqmeal`, {
+      fetch(`https://uni-meal-server.vercel.app/reqmeal`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

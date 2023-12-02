@@ -1,8 +1,7 @@
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Tabcart from "../../Tabcart/Tabcart";
 const Allmeals = () => {
-
   const [cards, setcards] = useState([]);
   const [displaycard, setDisplaycard] = useState(cards);
 
@@ -10,7 +9,7 @@ const Allmeals = () => {
     const { data: users } = useQuery({
       queryKey: ["users"],
       queryFn: async () => {
-        const res = await fetch("http://localhost:5000/meal");
+        const res = await fetch("https://uni-meal-server.vercel.app/meal");
         return res.json();
       },
     });
@@ -18,12 +17,12 @@ const Allmeals = () => {
 
   console.log(Users2);
   useEffect(() => {
-    fetch("http://localhost:5000/meal")
+    fetch("https://uni-meal-server.vercel.app/meal")
       .then((res) => res.json())
       .then((data) => setcards(data));
   }, []);
   useEffect(() => {
-    fetch("http://localhost:5000/meal")
+    fetch("https://uni-meal-server.vercel.app/meal")
       .then((res) => res.json())
       .then((data) => setDisplaycard(data));
   }, []);

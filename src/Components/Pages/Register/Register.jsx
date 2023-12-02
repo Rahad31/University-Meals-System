@@ -54,7 +54,7 @@ const Register = () => {
         role: "Make Admin",
         status: "Bronze",
       };
-      fetch(`http://localhost:5000/users`, {
+      fetch(`https://uni-meal-server.vercel.app/users`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

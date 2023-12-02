@@ -36,7 +36,7 @@ const Add = () => {
     console.log(newmeal);
     form.reset();
     // send data
-    fetch(`http://localhost:5000/meal`, {
+    fetch(`https://uni-meal-server.vercel.app/meal`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -52,55 +52,55 @@ const Add = () => {
       });
   };
 
-   const handleupmeal = (event) => {
-     event.preventDefault();
-     const form = event.target;
-     const image = form.meal_img.value;
-     const name = form.meal_name.value;
-     const username = form.meal_username.value;
-     const type = form.meal_type.value;
-     const ing = form.meal_ing.value;
-     const price = form.meal_price.value;
-     const description = form.meal_des.value;
-     const pdate = form.meal_pdate.value;
-     const rating = form.meal_rate.value;
-     const likes = form.meal_like.value;
-     const review = form.meal_review.value;
-     const useremail = form.meal_useremail.value;
-     const newmeal = {
-       name,
-       type,
-       image,
-       ing,
-       description,
-       price,
-       rating,
-       pdate,
-       likes,
-       review,
-       username,
-       useremail,
+  const handleupmeal = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const image = form.meal_img.value;
+    const name = form.meal_name.value;
+    const username = form.meal_username.value;
+    const type = form.meal_type.value;
+    const ing = form.meal_ing.value;
+    const price = form.meal_price.value;
+    const description = form.meal_des.value;
+    const pdate = form.meal_pdate.value;
+    const rating = form.meal_rate.value;
+    const likes = form.meal_like.value;
+    const review = form.meal_review.value;
+    const useremail = form.meal_useremail.value;
+    const newmeal = {
+      name,
+      type,
+      image,
+      ing,
+      description,
+      price,
+      rating,
+      pdate,
+      likes,
+      review,
+      username,
+      useremail,
 
-       price,
-     };
-     console.log(newmeal);
-     form.reset();
-     // send data
-     fetch(`http://localhost:5000/mealup`, {
-       method: "POST",
-       headers: {
-         "content-type": "application/json",
-       },
-       body: JSON.stringify(newmeal),
-     })
-       .then((res) => res.json())
-       .then((data) => {
-         console.log(data);
-         if (data.insertedId) {
-           toast("Sucessfully Added to Upcoming meal");
-         }
-       });
-   };
+      price,
+    };
+    console.log(newmeal);
+    form.reset();
+    // send data
+    fetch(`https://uni-meal-server.vercel.app/mealup`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newmeal),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          toast("Sucessfully Added to Upcoming meal");
+        }
+      });
+  };
 
   return (
     <div className="container mx-auto flex justify-center flex-row gap-5 items-center p-2">
@@ -264,8 +264,6 @@ const Add = () => {
               className="input input-bordered btn btn-error "
             />
           </div>
-
-          
         </div>
         <div className="flex flex-row gap-5"></div>
 
@@ -428,8 +426,6 @@ const Add = () => {
               className="input input-bordered w-full max-w-xs"
             />
           </div>
-
-          
 
           <div className="form-control w-full max-w-xs my-10 ">
             <input

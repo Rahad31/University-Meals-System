@@ -27,16 +27,16 @@ const Login = () => {
           role: "Make Admin",
           status: "Bronze",
         };
-         fetch(`http://localhost:5000/users`, {
-           method: "POST",
-           headers: {
-             "content-type": "application/json",
-           },
-           body: JSON.stringify(userInfo),
-         });
-          
+        fetch(`https://uni-meal-server.vercel.app/users`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        });
+
         toast("Successfull Login");
-        
+
         navigate("/");
       })
       .catch((error) => {
@@ -46,8 +46,7 @@ const Login = () => {
   };
 
   const handleGoogleSignIn = () => {
-    signInWithGoogle()
-    .then((result) => {
+    signInWithGoogle().then((result) => {
       console.log(result.user);
       navigate("/");
       const userInfo = {
@@ -56,7 +55,7 @@ const Login = () => {
         role: "Make Admin",
         status: "Bronze",
       };
-      fetch(`http://localhost:5000/users`, {
+      fetch(`https://uni-meal-server.vercel.app/users`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -71,7 +70,6 @@ const Login = () => {
             navigate("/");
           }
         });
-      
     });
   };
 

@@ -11,7 +11,7 @@ const Alluser = () => {
   //   const { data: users } = useQuery({
   //     queryKey: ["users"],
   //     queryFn: async () => {
-  //       const res = await fetch("http://localhost:5000/meal");
+  //       const res = await fetch("https://uni-meal-server.vercel.app/meal");
   //       return res.json();
   //     },
   //   });
@@ -22,17 +22,17 @@ const Alluser = () => {
     queryFn: async () => {
       const res = await axiosSecure.get("/users", {
         headers: {
-          authorization: `bearer ${localStorage.getItem("access-token")}`
+          authorization: `bearer ${localStorage.getItem("access-token")}`,
         },
       });
-      
+
       return res.data;
     },
   });
 
   console.log(users);
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://uni-meal-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setusers(data));
   }, []);
@@ -48,7 +48,7 @@ const Alluser = () => {
     //  role,
     // };
 
-    fetch(`http://localhost:5000/users/${user._id}`, {
+    fetch(`https://uni-meal-server.vercel.app/users/${user._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
