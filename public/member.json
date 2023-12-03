@@ -2,16 +2,16 @@
   {
     "img": "https://i.ibb.co/Cvbzj51/platinumattachment-6865518.png",
     "membership": "Platinum",
-    "price": 99.99
+    "price": 100
   },
   {
     "img": "https://i.ibb.co/0cjXbYC/goldattachment-6865518.png",
     "membership": "Gold",
-    "price": 79.99
+    "price": 80
   },
   {
     "img": "https://i.ibb.co/PtnzmGG/silverattachment-6865518.png",
     "membership": "Silver",
-    "price": 49.99
+    "price": 50
   }
 ]

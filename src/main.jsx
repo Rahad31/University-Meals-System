@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/meal/:_id",
-        loader: () => fetch("https://uni-meal-server.vercel.app/meal"),
+        loader: () => fetch("http://localhost:5000/meal"),
         element: <Details></Details>,
       },
     ],
@@ -70,8 +70,8 @@ const router = createBrowserRouter([
         element: <Alluser></Alluser>,
       },
       {
-        path: "/dashboard/payment",
-        element: <Payment></Payment>
+        path: "/dashboard/payment/:membership",
+        element: <Payment></Payment>,
       },
     ],
   },

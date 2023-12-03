@@ -14,7 +14,7 @@ const Allmeal = () => {
     const { data: users } = useQuery({
       queryKey: ["users"],
       queryFn: async () => {
-        const res = await fetch("https://uni-meal-server.vercel.app/meal");
+        const res = await fetch("http://localhost:5000/meal");
         return res.json();
       },
     });
@@ -22,12 +22,12 @@ const Allmeal = () => {
 
   console.log(Users2);
   useEffect(() => {
-    fetch("https://uni-meal-server.vercel.app/meal")
+    fetch("http://localhost:5000/meal")
       .then((res) => res.json())
       .then((data) => setcards(data));
   }, []);
   useEffect(() => {
-    fetch("https://uni-meal-server.vercel.app/meal")
+    fetch("http://localhost:5000/meal")
       .then((res) => res.json())
       .then((data) => setDisplaycard(data));
   }, []);

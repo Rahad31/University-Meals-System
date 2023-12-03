@@ -27,7 +27,7 @@ const Login = () => {
           role: "Make Admin",
           status: "Bronze",
         };
-        fetch(`https://uni-meal-server.vercel.app/users`, {
+        fetch(`http://localhost:5000/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -55,7 +55,7 @@ const Login = () => {
         role: "Make Admin",
         status: "Bronze",
       };
-      fetch(`https://uni-meal-server.vercel.app/users`, {
+      fetch(`http://localhost:5000/users`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

@@ -31,26 +31,26 @@ const Dashboard = () => {
     const { data: users } = useQuery({
       queryKey: ["users"],
       queryFn: async () => {
-        const res = await fetch("https://uni-meal-server.vercel.app/meal");
+        const res = await fetch("http://localhost:5000/meal");
         return res.json();
       },
     });
   };
   useEffect(() => {
-    fetch("https://uni-meal-server.vercel.app/users")
+    fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data) => setusers(data));
   }, []);
-  console.log(Users2);
+  // console.log(Users2);
   useEffect(() => {
-    fetch("https://uni-meal-server.vercel.app/meal")
+    fetch("http://localhost:5000/meal")
       .then((res) => res.json())
       .then((data) => setcards(data));
   }, []);
   const [isAdmin] = useAdmin();
 
   let check = users.filter((card) => card.email == user.email);
-  console.log(check);
+  // console.log(check);
 
   return (
     <div className="flex ">

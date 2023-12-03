@@ -11,7 +11,7 @@ const Alluser = () => {
   //   const { data: users } = useQuery({
   //     queryKey: ["users"],
   //     queryFn: async () => {
-  //       const res = await fetch("https://uni-meal-server.vercel.app/meal");
+  //       const res = await fetch("http://localhost:5000/meal");
   //       return res.json();
   //     },
   //   });
@@ -32,7 +32,7 @@ const Alluser = () => {
 
   console.log(users);
   useEffect(() => {
-    fetch("https://uni-meal-server.vercel.app/users")
+    fetch("http://localhost:5000/users")
       .then((res) => res.json())
       .then((data) => setusers(data));
   }, []);
@@ -48,7 +48,7 @@ const Alluser = () => {
     //  role,
     // };
 
-    fetch(`https://uni-meal-server.vercel.app/users/${user._id}`, {
+    fetch(`http://localhost:5000/users/${user._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
