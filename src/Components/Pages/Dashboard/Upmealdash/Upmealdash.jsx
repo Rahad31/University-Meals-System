@@ -6,21 +6,19 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Allmeal from "../../Allmeal/Allmeal";
 import Mealcart from "../Mealcart/Mealcart";
 import { Link } from "react-router-dom";
-const Allmeals = () => {
+const Upmealdash = () => {
   // const [cards, setcards] = useState([]);
-  
 
- 
-   const axiosPublic = useAxiosPublic();
-   const { data: meals = [], refetch } = useQuery({
-     queryKey: ["meals"],
-     queryFn: async () => {
-       const res = await axiosPublic.get("/meal", {});
+  const axiosPublic = useAxiosPublic();
+  const { data: meals = [], refetch } = useQuery({
+    queryKey: ["meals"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/mealup", {});
 
-       return res.data;
-     },
-   });
-   const [displaycard, setDisplaycard] = useState(meals);
+      return res.data;
+    },
+  });
+  const [displaycard, setDisplaycard] = useState(meals);
   // console.log(Users2);
   // useEffect(() => {
   //   fetch("http://localhost:5000/meal")
@@ -43,9 +41,8 @@ const Allmeals = () => {
             <th>Distributor Email</th>
             <th>Like</th>
             <th>Review</th>
-            <th>Delete</th>
-            <th>Update</th>
-            <th>Details</th>
+            <th>Publish</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -57,16 +54,9 @@ const Allmeals = () => {
               <td className="w-[200px]">{job.likes}</td>
               <td className="w-[200px]">{job.review}</td>
               <td className="w-[200px]">
-                <button className="btn btn-error">Delete</button>
+                <button className="btn btn-error">Publish</button>
               </td>
-              <td className="w-[200px]">
-                <button className="btn btn-error">update</button>
-              </td>
-              <Link to={`/meal/${job._id}`}>
-              <td className="w-[200px]">
-                <button className="btn btn-error">detail</button>
-              </td>
-              </Link>
+             
             </tr>
           ))}
         </tbody>
@@ -75,6 +65,4 @@ const Allmeals = () => {
   );
 };
 
- 
-
-export default Allmeals;
+export default Upmealdash;

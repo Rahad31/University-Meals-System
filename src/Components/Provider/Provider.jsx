@@ -1,5 +1,4 @@
 import {
-  
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -16,14 +15,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { GoogleAuthProvider } from "firebase/auth";
 export const AuthContext = createContext(null);
 
-
-
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-    const googleProvider = new GoogleAuthProvider();
-    const axiosPublic = useAxiosPublic();
+  const googleProvider = new GoogleAuthProvider();
+  const axiosPublic = useAxiosPublic();
 
   const createUser = (email, password, name, image) => {
     setLoading(true);
@@ -40,6 +37,8 @@ const AuthProvider = ({ children }) => {
           displayName: name,
           photoURL: image,
         });
+        console.log(name);
+        console.log(email);
         navigate("/");
       })
       .catch((error) => {

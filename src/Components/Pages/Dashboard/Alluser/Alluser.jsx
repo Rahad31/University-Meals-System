@@ -5,8 +5,15 @@ import "react-toastify/dist/ReactToastify.css";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 const Alluser = () => {
-  const [userss, setusers] = useState([]);
-
+  // const [userss, setusers] = useState([]);
+  
+// const { refetch, data: cart = [] } = useQuery({
+//   queryKey: ["cart", user?.email],
+//   queryFn: async () => {
+//     const res = await axiosSecure.get(`/meal?email=${user.email}`);
+//     return res.data;
+//   },
+// });
   // const Users2 = () => {
   //   const { data: users } = useQuery({
   //     queryKey: ["users"],
@@ -31,11 +38,11 @@ const Alluser = () => {
   });
 
   console.log(users);
-  useEffect(() => {
-    fetch("http://localhost:5000/users")
-      .then((res) => res.json())
-      .then((data) => setusers(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/users")
+  //     .then((res) => res.json())
+  //     .then((data) => setusers(data));
+  // }, []);
 
   const update = (user) => {
     //   const name = user.name;
@@ -60,9 +67,10 @@ const Alluser = () => {
         console.log(data);
         if (data.modifiedCount > 0) {
           toast("Admin is done");
+           refetch();
           navigate("/");
         }
-        window.location.reload();
+      refetch()
       });
   };
 
@@ -79,7 +87,7 @@ const Alluser = () => {
           </tr>
         </thead>
         <tbody>
-          {userss.map((job) => (
+          {users.map((job) => (
             <tr key={job._id}>
               <td className="w-[200px]">{job.name}</td>
               <td className="w-[200px]">{job.email}</td>

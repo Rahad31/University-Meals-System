@@ -1,14 +1,17 @@
 import React from "react";
-import Banner from "../Banner/Banner";
+
 import Footer from "../Footer/Footer";
 import Tabs from "../Tabs/Tabs";
 import Membership from "../Membership/Membership";
+import Sell from "../Sell/Sell";
 
+import Benner from "../Benner/Benner";
 const Home = () => {
   return (
     <div className="">
-      <Banner></Banner>
+      <Benner></Benner>
       <Tabs></Tabs>
+      <Sell></Sell>
       <Membership></Membership>
       <Footer></Footer>
     </div>

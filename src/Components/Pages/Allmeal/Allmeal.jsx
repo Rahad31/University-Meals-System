@@ -6,26 +6,26 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 
 import Tabcart from "../Tabcart/Tabcart";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 const Allmeal = () => {
-  const [cards, setcards] = useState([]);
-  const [displaycard, setDisplaycard] = useState(cards);
+  // const [cards, setcards] = useState([]);
 
-  const Users2 = () => {
-    const { data: users } = useQuery({
-      queryKey: ["users"],
-      queryFn: async () => {
-        const res = await fetch("http://localhost:5000/meal");
-        return res.json();
-      },
-    });
-  };
+  const axiosPublic = useAxiosPublic();
+  const { data: meals = [], refetch } = useQuery({
+    queryKey: ["meals"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/meal", {});
 
-  console.log(Users2);
-  useEffect(() => {
-    fetch("http://localhost:5000/meal")
-      .then((res) => res.json())
-      .then((data) => setcards(data));
-  }, []);
+      return res.data;
+    },
+  });
+    const [displaycard, setDisplaycard] = useState(meals);
+  console.log(meals);
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/meal")
+  //     .then((res) => res.json())
+  //     .then((data) => setcards(data));
+  // }, []);
   useEffect(() => {
     fetch("http://localhost:5000/meal")
       .then((res) => res.json())
@@ -35,25 +35,25 @@ const Allmeal = () => {
   const getvalue = (event) => {
     const filters = document.getElementById("search").value;
     console.log(filters);
-    const Health1 = cards.filter((card) => card.name == filters);
+    const Health1 = meals.filter((card) => card.name == filters);
     setDisplaycard(Health1);
 
     const filter = document.getElementById("mealss").value;
     search.value = " ";
     console.log(filter);
     if (filter == "Breakfast") {
-      const Health = cards.filter((card) => card.type == "Breakfast");
+      const Health = meals.filter((card) => card.type == "Breakfast");
       setDisplaycard(Health);
     } else if (filter == "Lunch") {
-      const Clothing = cards.filter((card) => card.type == "Lunch");
+      const Clothing = meals.filter((card) => card.type == "Lunch");
       setDisplaycard(Clothing);
     } else if (filter == "Dinner") {
-      const Education = cards.filter((card) => card.type == "Dinner");
+      const Education = meals.filter((card) => card.type == "Dinner");
       setDisplaycard(Education);
     } else {
       toast("Category Not Matched");
     }
-    console.log(Health);
+    // console.log(Health);
   };
   return (
     <div className="container mx-auto flex flex-col justify-center items-center gap-2 my-6">

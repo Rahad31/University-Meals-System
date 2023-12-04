@@ -1,12 +1,13 @@
 import React from 'react';
 import Marquee from "react-fast-marquee";
 import { useLoaderData } from "react-router-dom";
+import Sellcart from '../Sellcart/Sellcart';
 
 import { useState, useEffect } from "react";
 const Sell = () => {
  const [sell, setsell] = useState([]);
  useEffect(() => {
-   fetch("https://job-server-beryl.vercel.app/job")
+   fetch("http://localhost:5000/meal")
      .then((res) => res.json())
      .then((data) => setsell(data));
  }, []);

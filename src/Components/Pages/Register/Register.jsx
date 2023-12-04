@@ -33,12 +33,26 @@ const Register = () => {
       );
       return;
     } else {
+      const userInfo = {
+        email: email,
+        name: name,
+        role: "Make Admin",
+        status: "Bronze",
+      };
+      fetch(`http://localhost:5000/users`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      });
       toast("Successfully Registered and Login");
       navigate("/");
+
       createUser(email, password, name, image)
         .then((result) => {
           console.log(result.user);
-          toast("Successfully Registered and Login");
+          toast("Successfully Registered and Logiin");
           navigate("/");
         })
 
@@ -75,9 +89,6 @@ const Register = () => {
   return (
     <div className="flex justify-center items-center ">
       <div className="hero min-h-screen w-[600px] rounded-md bg-[#e2e8f0] ">
-        <Helmet>
-          <title>Job Hunt | Register</title>
-        </Helmet>
         <div className="hero-content flex-col">
           <div className="text-center ">
             <h1 className="text-4xl text-[#eaa334] font-bold">Register </h1>

@@ -22,7 +22,7 @@ const Navbar = () => {
   //   const localtheme = localStorage.getItem("theme");
   //   document.querySelector("html").setAttribute("data-theme", localtheme);
   // });
-  
+
   const { user, logOut } = useContext(AuthContext);
   const handleLogOut = () => {
     logOut()
@@ -37,15 +37,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/meal">Meals</NavLink>
       </li>
-      {!user && <></>}{" "}
-      {user && (
-        <>
-          <li>
-            <NavLink to="/dashboard">Dasboard</NavLink>
-          </li>
-         
-        </>
-      )}
+      {!user && <></>} {user && <></>}
     </>
   );
   return (
@@ -89,7 +81,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end gap-1 flex flex-col-reverse pl-10 pt- md:flex-row md:pl-0 md:pt-0">
-          <NavLink to="/upcomingmeal">
+          <NavLink to="/mealup">
             <img
               className="h-[30px] w-[30px]"
               src="https://i.ibb.co/wd5kTrj/2474912.webp"
@@ -107,20 +99,17 @@ const Navbar = () => {
                 </label>
                 <ul
                   tabIndex={0}
-                  className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                  className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 rounded-box w-52"
                 >
-                  <li>{user.displayName}</li>
+                  <li className="p-3">{user.displayName}</li>
                   <li>
                     <Link to="dashboard">
                       {" "}
                       <a>Dashboard</a>
                     </Link>
                   </li>
-                  
-                  <li onClick={handleLogOut}>
-                    <a>Item 2</a>
-                  </li>
-                  <a onClick={handleLogOut} className="btn btn-sm">
+
+                  <a onClick={handleLogOut} className="btn btn-sm mt-2">
                     Sign out
                   </a>
                 </ul>

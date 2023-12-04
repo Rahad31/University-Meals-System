@@ -18,6 +18,11 @@ import Dashboard from "./components/Layout/Root/Dashboard.jsx";
 import Allmeals from "./components/Pages/Dashboard/Allmeals/Allmeals.jsx";
 import Alluser from "./components/Pages/Dashboard/Alluser/Alluser.jsx";
 import Payment from "./components/Pages/Dashboard/Payment/Payment.jsx";
+import Userprofile from "./components/Pages/Dashboard/Userprofile/Userprofile.jsx";
+import Up from "./components/Pages/Dashboard/Up/Up.jsx";
+import Useradmin from "./components/Pages/Dashboard/Useradmin/Useradmin.jsx";
+import Upmeal from "./components/Pages/Upmeal/Upmeal.jsx";
+import Upmealdash from "./components/Pages/Dashboard/Upmealdash/Upmealdash.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/meal",
         element: <Allmeal></Allmeal>,
+      },
+      {
+        path: "/mealup",
+        element: <Upmeal></Upmeal>,
       },
       {
         path: "/meal/:_id",
@@ -72,6 +81,18 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/payment/:membership",
         element: <Payment></Payment>,
+      },
+      {
+        path: "/dashboard/Userprofile",
+        element: <Userprofile></Userprofile>,
+      },
+      {
+        path: "/dashboard/Useradmin",
+        element: <Useradmin></Useradmin>,
+      },
+      {
+        path: "/dashboard/Upmealdash",
+        element: <Upmealdash></Upmealdash>,
       },
     ],
   },

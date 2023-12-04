@@ -52,6 +52,13 @@ const Details = () => {
         usernameadd,
         stats,
         useremails,
+        username,
+        pdate,
+        ing,
+        rating,
+        price,
+        description,
+        review,
       };
       fetch(`http://localhost:5000/reqmeal`, {
         method: "POST",
@@ -110,7 +117,7 @@ const Details = () => {
               <h3 className="text-center w-[300px]  text-[#120f0a] text-normal font-semibold pt-2">
                 Ratings:
               </h3>
-              <Rating
+              <Rating className="text-center"
                 placeholderRating={jobdetail.rating}
                 emptySymbol={
                   <img

@@ -1,17 +1,17 @@
 import React from "react";
 
-const Banner = () => {
+const Benner = () => {
   return (
-    <div className="container mx-auto m-5 my-20">
+    <div className="container mx-auto p-4 my-20">
       <img
         className="h-[500px] w-full rounded-md relative"
         src="https://i.ibb.co/jfg808s/food-facebook-cover-template-modern-food-banner-497837-809.jpg"
       ></img>
-      <div className=" flex flex-col gap-2 italic absolute top-[420px] right-[35px] md:top-[320px] md:right-[230px] lg:top-[300px] lg:right-[820px]">
+      <div className=" flex flex-col gap-2 italic absolute top-[400px] right-[35px] md:top-[320px] md:right-[230px] lg:top-[300px] lg:right-[820px]">
         <div className="text-6xl font-bold">
           <span className="text-silver  ">UNI MEAL</span>
         </div>
-        <h1 className="text-2xl text-[#EAA334]">
+        <h1 className="text-2xl font-semibold ">
           Great minds need great meals
         </h1>
         <div className="join">
@@ -20,10 +20,7 @@ const Banner = () => {
             className="input input-bordered join-item"
             placeholder="Search Meal"
           />
-          <button
-            
-            className="btn btn-error join-item rounded-r-md"
-          >
+          <button className="btn btn-error join-item rounded-r-md">
             Search
           </button>
         </div>
@@ -32,4 +29,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default Benner;

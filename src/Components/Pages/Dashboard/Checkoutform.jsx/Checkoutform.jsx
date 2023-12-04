@@ -5,7 +5,10 @@ import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import Check from "../../Check/Check";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 const CheckoutForm = (membership) => {
   const member = membership.membership;
   console.log(member);
@@ -14,12 +17,11 @@ const CheckoutForm = (membership) => {
   if (member == "Platinum") {
     Price = "100";
   } else if (member == "Gold") {
-    Price ="80";
+    Price = "80";
   } else if (member == "Silver") {
     Price = "50";
   } else {
   }
-  console.log(Price);
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
@@ -27,21 +29,50 @@ const CheckoutForm = (membership) => {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [cart, refetch] = useCart();
-  const navigate = useNavigate();
- 
 
-   
-         useEffect(() => {
-    {
-            axiosSecure.post('/create-payment-intent', { price: Price })
-                .then(res => {
-                    console.log(res.data.clientSecret);
-                    setClientSecret(res.data.clientSecret);
-                })
-        }
-    
-  }, [axiosSecure, Price]);
+  const navigate = useNavigate();
+
+  const totalPrice = Price;
+
+  let status = member;
+  console.log(status);
+  let members = {
+    status,
+  };
+  const [carts, setcarts] = useState([]);
+
+  const axiosPublic = useAxiosPublic();
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/users", {});
+
+      return res.data;
+    },
+  });
+
+  console.log(users);
+  useEffect(() => {
+    fetch("http://localhost:5000/users")
+      .then((res) => res.json())
+      .then((data) => setcarts(data));
+  }, []);
+
+  
+
+  console.log(members);
+  
+  console.log(member);
+  useEffect(() => {
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: totalPrice })
+        .then((res) => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
+    }
+  }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -69,6 +100,13 @@ const CheckoutForm = (membership) => {
       setError("");
     }
 
+    // fetch(`http://localhost:5000/users/${_id}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(members),
+    // });
     // confirm payment
     const { paymentIntent, error: confirmError } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -80,7 +118,32 @@ const CheckoutForm = (membership) => {
           },
         },
       });
+      const userEmail = user.email;
+      if (userEmail) {
+        const fil = users.filter((card) => card.email === userEmail);
+        console.log(fil);
 
+        if (fil.length > 0) {
+          const count = fil[0];
+          console.log(count);
+
+          const id = count._id;
+          console.log(id);
+          fetch(`http://localhost:5000/users/check/${id}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(members),
+          });
+        } else {
+          console.log("No user found with the given email.");
+        }
+      } else {
+        console.log("User email is not defined.");
+      }
+    console.log("oks");
+    toast(`Successfully Upgraded to ${member} `);
     if (confirmError) {
       console.log("confirm error");
     } else {
@@ -88,81 +151,72 @@ const CheckoutForm = (membership) => {
       if (paymentIntent.status === "succeeded") {
         console.log("transaction id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
-
-        fetch(`http://localhost:5000/users/${user.email}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(),
-        })
-          .then((res) => res.json(membership))
-          .then((data) => {
-            console.log(data);
-            if (data.modifiedCount > 0) {
-              toast("Successfull purchase");
-              navigate("/dashboard");
-            }
-          });
+        console.log("ok");
 
         // now save the payment in the database
-        // const payment = {
-        //   email: user.email,
-        //   price: totalPrice,
-        //   transactionId: paymentIntent.id,
-        //   date: new Date(), // utc date convert. use moment js to
-        //   cartIds: cart.map((item) => item._id),
-        //   menuItemIds: cart.map((item) => item.menuId),
-        //   status: "pending",
-        // };
+        //   const payment = {
+        //     email: user.email,
+        //     price: totalPrice,
+        //     transactionId: paymentIntent.id,
+        //     date: new Date(), // utc date convert. use moment js to
+        //     cartIds: cart.map((item) => item._id),
+        //     menuItemIds: cart.map((item) => item.menuId),
+        //     status: "pending",
+        //   };
 
-        // const res = await axiosSecure.post("/payments", payment);
-        // console.log("payment saved", res.data);
-        // refetch();
-        // if (res.data?.paymentResult?.insertedId) {
-        //   Swal.fire({
-        //     position: "top-end",
-        //     icon: "success",
-        //     title: "Thank you for the taka paisa",
-        //     showConfirmButton: false,
-        //     timer: 1500,
-        //   });
-        //   navigate("/dashboard");
-        // }
+        //   const res = await axiosSecure.post("/payments", payment);
+        //   console.log("payment saved", res.data);
+        //   refetch();
+        //   if (res.data?.paymentResult?.insertedId) {
+        //     Swal.fire({
+        //       position: "top-end",
+        //       icon: "success",
+        //       title: "Thank you for the taka paisa",
+        //       showConfirmButton: false,
+        //       timer: 1500,
+        //     });
+        //     navigate("/dashboard/paymentHistory");
+        //   }
       }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": {
-                color: "#aab7c4",
+    <div>
+      <form onSubmit={handleSubmit} className=" my-20">
+        <CardElement
+          options={{
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
               },
             },
-            invalid: {
-              color: "#9e2146",
-            },
-          },
-        }}
-      />
-      <button
-        className="btn btn-sm btn-primary my-4"
-        type="submit"
-        disabled={!stripe || !clientSecret}
-      >
-        Pay
-      </button>
-      <p className="text-red-600">{error}</p>
-      {transactionId && (
-        <p className="text-green-600"> Your transaction id: {transactionId}</p>
-      )}
-    </form>
+          }}
+        />
+        <button
+          className="btn btn-sm btn-primary my-4"
+          type="submit"
+          disabled={!stripe || !clientSecret}
+        >
+          Pay
+        </button>
+        <p className="text-red-600">{error}</p>
+        {transactionId && (
+          <p className="text-green-600">
+            {" "}
+            Your transaction id: {transactionId}
+          </p>
+        )}
+      </form>
+      <Check cart={carts}></Check>
+    </div>
   );
 };
 
