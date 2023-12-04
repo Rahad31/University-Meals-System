@@ -15,6 +15,7 @@ const Register = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const image = event.target.image.value;
+    console.log(name)
     event.target.reset();
     // console.log(image);
 

@@ -6,6 +6,8 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Allmeal from "../../Allmeal/Allmeal";
 import Mealcart from "../Mealcart/Mealcart";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Upmealdash = () => {
   // const [cards, setcards] = useState([]);
 
@@ -18,6 +20,22 @@ const Upmealdash = () => {
       return res.data;
     },
   });
+  const add =(job)=>{
+    fetch(`https://uni-meal-server.vercel.app/meal`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(job),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          toast("Sucessfully Added ");
+        }
+      });
+  }
   const [displaycard, setDisplaycard] = useState(meals);
   // console.log(Users2);
   // useEffect(() => {
@@ -53,7 +71,9 @@ const Upmealdash = () => {
               <td className="w-[200px]">{job.likes}</td>
               <td className="w-[200px]">{job.review}</td>
               <td className="w-[200px]">
-                <button className="btn btn-error">Publish</button>
+              {job.likes <10 ? (
+                  "Unpublishable"
+                ) : (  <button onclick={add(job)} className="btn btn-error">Publish</button>)}
               </td>
             </tr>
           ))}
