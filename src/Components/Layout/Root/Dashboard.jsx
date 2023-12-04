@@ -31,19 +31,19 @@ const Dashboard = () => {
     const { data: users } = useQuery({
       queryKey: ["users"],
       queryFn: async () => {
-        const res = await fetch("http://localhost:5000/meal");
+        const res = await fetch("https://uni-meal-server.vercel.app/meal");
         return res.json();
       },
     });
   };
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://uni-meal-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setusers(data));
   }, []);
   // console.log(Users2);
   useEffect(() => {
-    fetch("http://localhost:5000/meal")
+    fetch("https://uni-meal-server.vercel.app/meal")
       .then((res) => res.json())
       .then((data) => setcards(data));
   }, []);
@@ -84,13 +84,13 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/revew">
+                <NavLink to="/dashboard/adminreview">
                   <FaUtensils></FaUtensils>
                   All review
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/revew">
+                <NavLink to="/dashboard/serve">
                   <FaUtensils></FaUtensils>
                   Serve Meal
                 </NavLink>
@@ -111,14 +111,14 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/history">
+                <NavLink to="/dashboard/reqmeal">
                   <FaUtensils></FaUtensils>
                   Requested Meal
                 </NavLink>
               </li>
 
               <li>
-                <NavLink to="/dashboard/review">
+                <NavLink to="/dashboard/userreview">
                   <FaAd></FaAd>
                   My Review
                 </NavLink>

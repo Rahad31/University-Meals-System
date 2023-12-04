@@ -4,16 +4,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-const Alluser = () => {
-  // const [userss, setusers] = useState([]);
+const Servemeal = () => {
+  const [userss, setusers] = useState([]);
 
-  // const { refetch, data: cart = [] } = useQuery({
-  //   queryKey: ["cart", user?.email],
-  //   queryFn: async () => {
-  //     const res = await axiosSecure.get(`/meal?email=${user.email}`);
-  //     return res.data;
-  //   },
-  // });
   // const Users2 = () => {
   //   const { data: users } = useQuery({
   //     queryKey: ["users"],
@@ -27,11 +20,7 @@ const Alluser = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users", {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("access-token")}`,
-        },
-      });
+      const res = await axiosSecure.get("/reqmeal", {});
 
       return res.data;
     },
@@ -55,7 +44,7 @@ const Alluser = () => {
     //  role,
     // };
 
-    fetch(`https://uni-meal-server.vercel.app/users/${user._id}`, {
+    fetch(`https://uni-meal-server.vercel.app/reqmeal/${user._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -66,7 +55,7 @@ const Alluser = () => {
       .then((data) => {
         console.log(data);
         if (data.modifiedCount > 0) {
-          toast("Admin is done");
+          toast("Served");
           refetch();
           navigate("/");
         }
@@ -80,27 +69,30 @@ const Alluser = () => {
         {/* head */}
         <thead>
           <tr>
-            <th>User Name</th>
-            <th>User Email</th>
-            <th>Admin Status</th>
-            <th>Membership</th>
+            <th>Meal Title</th>
+            <th>Requester Email</th>
+            <th>Requester Name</th>
+            <th>Status</th>
+            <th>Serve</th>
           </tr>
         </thead>
         <tbody>
           {users.map((job) => (
             <tr key={job._id}>
               <td className="w-[200px]">{job.name}</td>
-              <td className="w-[200px]">{job.email}</td>
+              <td className="w-[200px]">{job.useremails}</td>
+
+              <td className="w-[200px]">{job.usernameadd}</td>
+              <td className="w-[200px]">{job.stats}</td>
               <td className="w-[200px]">
-                {job.role === "Admin" ? (
-                  "Admin"
+                {job.stats === "Served" ? (
+                  "Served"
                 ) : (
                   <button onClick={() => update(job)} className="btn btn-error">
-                    {job.role}
+                    Serve
                   </button>
                 )}
-              </td>{" "}
-              <td className="w-[200px]">{job.status}</td>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -109,4 +101,4 @@ const Alluser = () => {
   );
 };
 
-export default Alluser;
+export default Servemeal;

@@ -1,8 +1,56 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Rating from "react-rating";
-const Upmealcart= ({ jobs }) => {
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const Upmealcart = ({ jobs }) => {
   const { _id, username, image, name, type, price, pdate, rating } = jobs;
+  const { user } = useAuth();
+  console.log(user);
+  const handlelike = () => {
+    const axiosPublic = useAxiosPublic();
+    const { data: users = [], refetch } = useQuery({
+      queryKey: ["users"],
+      queryFn: async () => {
+        const res = await axiosPublic.get("/mealup", {});
+
+        return res.data;
+      },
+    });
+    const userEmail = user.email;
+    if (userEmail) {
+      const fil = users.filter((card) => card._id === _id);
+      console.log(fil);
+
+      if (fil.length > 0) {
+        const count = fil[0];
+        console.log(count);
+
+        const id = count._id;
+        console.log(id);
+        const counts = parseInt(count.likes) + 1;
+        toast(`Liked....`);
+        const uplike = {
+          counts,
+        };
+        console.log(counts);
+        fetch(`https://uni-meal-server.vercel.app/mealup/${id}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(uplike),
+        });
+      } else {
+        console.log("No user found with the given email.");
+      }
+    } else {
+      console.log("User email is not defined.");
+    }
+  };
   // console.log({ name });
   return (
     <div>
@@ -43,9 +91,13 @@ const Upmealcart= ({ jobs }) => {
           </h3>
           <div>
             {" "}
-            {/* <Link to={`/meal/${_id}`}> */}
-              {" "}
-              <button className="btn btn-error w-[180px] mt-2 ">like</button>
+            {/* <Link to={`/meal/${_id}`}> */}{" "}
+            <button
+              onClick={() => handlelike}
+              className="btn btn-error w-[180px] mt-2 "
+            >
+              Like
+            </button>
             {/* </Link> */}
           </div>
         </div>

@@ -21,18 +21,18 @@ const Upmeal = () => {
   const [displaycard, setDisplaycard] = useState(meals);
   // console.log(Users2);
   // useEffect(() => {
-  //   fetch("http://localhost:5000/meal")
+  //   fetch("https://uni-meal-server.vercel.app/meal")
   //     .then((res) => res.json())
   //     .then((data) => setcards(data));
   // }, []);
   // useEffect(() => {
-  //   fetch("http://localhost:5000/meal")
+  //   fetch("https://uni-meal-server.vercel.app/meal")
   //     .then((res) => res.json())
   //     .then((data) => setDisplaycard(data));
   // }, []);
   return (
     <div className="container mx-auto gap-6 my-4 flex flex-col justify-center items-center">
-       <div className="text-4xl font-bold text-[#EAA334]">UPCOMING MEAL </div>
+      <div className="text-4xl font-bold text-[#EAA334]">UPCOMING MEAL </div>
 
       <div className="text-xl">Great minds need great meals</div>
       <div
@@ -41,8 +41,6 @@ const Upmeal = () => {
       >
         <hr></hr>
       </div>
-    
-       
 
       <div className="flex flex-wrap justify-center items-center gap-4">
         {meals.map((jobs) => (
@@ -51,7 +49,6 @@ const Upmeal = () => {
       </div>
       <hr></hr>
     </div>
-    
   );
 };
 

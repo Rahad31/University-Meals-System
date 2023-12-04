@@ -36,7 +36,7 @@ const Add = () => {
     console.log(newmeal);
     form.reset();
     // send data
-    fetch(`http://localhost:5000/meal`, {
+    fetch(`https://uni-meal-server.vercel.app/meal`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -86,7 +86,7 @@ const Add = () => {
     console.log(newmeal);
     form.reset();
     // send data
-    fetch(`http://localhost:5000/mealup`, {
+    fetch(`https://uni-meal-server.vercel.app/mealup`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

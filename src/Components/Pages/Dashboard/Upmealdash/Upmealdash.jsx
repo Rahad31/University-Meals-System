@@ -21,12 +21,12 @@ const Upmealdash = () => {
   const [displaycard, setDisplaycard] = useState(meals);
   // console.log(Users2);
   // useEffect(() => {
-  //   fetch("http://localhost:5000/meal")
+  //   fetch("https://uni-meal-server.vercel.app/meal")
   //     .then((res) => res.json())
   //     .then((data) => setcards(data));
   // }, []);
   // useEffect(() => {
-  //   fetch("http://localhost:5000/meal")
+  //   fetch("https://uni-meal-server.vercel.app/meal")
   //     .then((res) => res.json())
   //     .then((data) => setDisplaycard(data));
   // }, []);
@@ -42,7 +42,6 @@ const Upmealdash = () => {
             <th>Like</th>
             <th>Review</th>
             <th>Publish</th>
-            
           </tr>
         </thead>
         <tbody>
@@ -56,7 +55,6 @@ const Upmealdash = () => {
               <td className="w-[200px]">
                 <button className="btn btn-error">Publish</button>
               </td>
-             
             </tr>
           ))}
         </tbody>

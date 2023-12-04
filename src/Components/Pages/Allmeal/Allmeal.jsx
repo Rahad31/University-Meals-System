@@ -19,27 +19,38 @@ const Allmeal = () => {
       return res.data;
     },
   });
-    const [displaycard, setDisplaycard] = useState(meals);
+  const [displaycard, setDisplaycard] = useState(meals);
+  const [displaycards, setDisplaycards] = useState(meals);
   console.log(meals);
   // useEffect(() => {
-  //   fetch("http://localhost:5000/meal")
+  //   fetch("https://uni-meal-server.vercel.app/meal")
   //     .then((res) => res.json())
   //     .then((data) => setcards(data));
   // }, []);
   useEffect(() => {
-    fetch("http://localhost:5000/meal")
+    fetch("https://uni-meal-server.vercel.app/meal")
       .then((res) => res.json())
       .then((data) => setDisplaycard(data));
   }, []);
 
+  const getvalues = (event) => {
+    const filters = document.getElementById("search").value;
+    console.log(filters);
+    const Health1 = meals.filter((card) => card.name === filters);
+    setDisplaycards(Health1);
+    console.log(Health1);
+    search.value = " ";
+  };
+
   const getvalue = (event) => {
     const filters = document.getElementById("search").value;
     console.log(filters);
-    const Health1 = meals.filter((card) => card.name == filters);
+    const Health1 = meals.filter((card) => card.name === filters);
     setDisplaycard(Health1);
+    console.log(Health1);
 
     const filter = document.getElementById("mealss").value;
-    search.value = " ";
+
     console.log(filter);
     if (filter == "Breakfast") {
       const Health = meals.filter((card) => card.type == "Breakfast");
@@ -73,13 +84,17 @@ const Allmeal = () => {
           placeholder="Search by title"
         />
         <button
-          onClick={() => getvalue()}
+          onClick={() => getvalues()}
           className="btn btn-error join-item rounded-r-md"
         >
           Search
         </button>
       </div>
-
+      <div className="flex flex-wrap justify-center items-center gap-4">
+        {displaycards.map((jobs) => (
+          <Tabcart jobs={jobs}></Tabcart>
+        ))}
+      </div>
       <h2 className=" font-bold text-2xl mr-2">Sort by:</h2>
       <select
         onChange={() => getvalue()}

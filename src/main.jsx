@@ -23,6 +23,14 @@ import Up from "./components/Pages/Dashboard/Up/Up.jsx";
 import Useradmin from "./components/Pages/Dashboard/Useradmin/Useradmin.jsx";
 import Upmeal from "./components/Pages/Upmeal/Upmeal.jsx";
 import Upmealdash from "./components/Pages/Dashboard/Upmealdash/Upmealdash.jsx";
+import Servemeal from "./components/Pages/Dashboard/Servemeal/Servemeal.jsx";
+import Reqmeal from "./components/Pages/Dashboard/Reqmeal/Reqmeal.jsx";
+import Update from "./components/Pages/Dashboard/Update/Update.jsx";
+import Detailuser from "./components/Pages/Dashboard/Detailuser/Detailuser.jsx";
+import Adminreview from "./components/Pages/Dashboard/Adminreview/Adminreview.jsx";
+import Revdetail from "./components/Pages/Dashboard/Revdetail/Revdetal.jsx";
+import Userrev from "./components/Pages/Dashboard/Userrev/Userrev.jsx";
+import Uprev from "./components/Pages/Dashboard/Uprev/Uprev.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,8 +59,28 @@ const router = createBrowserRouter([
       },
       {
         path: "/meal/:_id",
-        loader: () => fetch("http://localhost:5000/meal"),
+        loader: () => fetch("https://uni-meal-server.vercel.app/meal"),
         element: <Details></Details>,
+      },
+      {
+        path: "/meal/update/:_id",
+        loader: ({ params }) =>
+          fetch(`https://uni-meal-server.vercel.app/meal/${params._id}`),
+        element: (
+          <PrivateRoute>
+            <Update></Update>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/review/update/:_id",
+        loader: ({ params }) =>
+          fetch(`https://uni-meal-server.vercel.app/review/${params._id}`),
+        element: (
+          <PrivateRoute>
+            <Uprev></Uprev>
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -93,6 +121,32 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/Upmealdash",
         element: <Upmealdash></Upmealdash>,
+      },
+      {
+        path: "/dashboard/serve",
+        element: <Servemeal></Servemeal>,
+      },
+      {
+        path: "/dashboard/reqmeal",
+        element: <Reqmeal></Reqmeal>,
+      },
+      {
+        path: "/dashboard/meal/:_id",
+        loader: () => fetch("https://uni-meal-server.vercel.app/meal"),
+        element: <Detailuser></Detailuser>,
+      },
+      {
+        path: "/dashboard/adminreview",
+        element: <Adminreview></Adminreview>,
+      },
+      {
+        path: "/dashboard/review/:_id",
+        loader: () => fetch("https://uni-meal-server.vercel.app/review"),
+        element: <Revdetail></Revdetail>,
+      },
+      {
+        path: "/dashboard/userreview",
+        element: <Userrev></Userrev>,
       },
     ],
   },

@@ -8,20 +8,40 @@ import Allmeal from "../../Allmeal/Allmeal";
 import Mealcart from "../Mealcart/Mealcart";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-const Allmeals = () => {
+import useAuth from "../../../hooks/useAuth";
+const Userrev = () => {
   // const [cards, setcards] = useState([]);
-
+  const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { data: meals = [], refetch } = useQuery({
     queryKey: ["meals"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/meal", {});
+      const res = await axiosPublic.get("/review", {});
 
       return res.data;
     },
   });
-  const [displaycard, setDisplaycard] = useState(meals);
+  let fil;
+  const [displaycard, setDisplaycard] = useState();
+  const userEmail = user.email;
+  console.log(user.email);
+  if (userEmail) {
+    fil = meals.filter((card) => card.useremails === userEmail);
+    console.log(fil);
+
+    if (fil.length > 0) {
+      const count = fil[0];
+      console.log(count);
+
+      const id = count._id;
+      console.log(id);
+    } else {
+      console.log("No user found with the given email.");
+    }
+  } else {
+    console.log("User email is not defined.");
+  }
 
   const handleDeleteUser = (job) => {
     Swal.fire({
@@ -34,7 +54,7 @@ const Allmeals = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/meal/${job._id}`).then((res) => {
+        axiosSecure.delete(`/review/${job._id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
@@ -66,21 +86,19 @@ const Allmeals = () => {
         <thead>
           <tr>
             <th>Meal Title</th>
-            <th>Distributor Name</th>
-            <th>Distributor Email</th>
+
             <th>Like</th>
             <th>Review</th>
             <th>Delete</th>
-            <th>Update</th>
+            <th>Edit</th>
             <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          {meals.map((job) => (
+          {fil.map((job) => (
             <tr key={job._id}>
               <td className="w-[200px]">{job.name}</td>
-              <td className="w-[200px]">{job.username}</td>
-              <td className="w-[200px]">{job.useremail}</td>
+
               <td className="w-[200px]">{job.likes}</td>
               <td className="w-[200px]">{job.review}</td>
               <td className="w-[200px]">
@@ -92,11 +110,11 @@ const Allmeals = () => {
                 </button>
               </td>
               <td className="w-[200px]">
-                <Link to={`/meal/update/${job._id}`}>
-                  <button className="btn btn-error">Update</button>
+                <Link to={`/review/update/${job._id}`}>
+                  <button className="btn btn-error">Edit</button>
                 </Link>
               </td>
-              <Link to={`/dashboard/meal/${job._id}`}>
+              <Link to={`/dashboard/review/${job._id}`}>
                 <td className="w-[200px]">
                   <button className="btn btn-error">Detail</button>
                 </td>
@@ -109,4 +127,4 @@ const Allmeals = () => {
   );
 };
 
-export default Allmeals;
+export default Userrev;

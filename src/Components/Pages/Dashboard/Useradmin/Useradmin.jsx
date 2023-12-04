@@ -10,7 +10,7 @@ const Useradmin = () => {
   const [cards, setcards] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/meal")
+    fetch("https://uni-meal-server.vercel.app/meal")
       .then((res) => res.json())
       .then((data) => setcards(data));
   }, []);
@@ -25,12 +25,10 @@ const Useradmin = () => {
         <img className=" w-[300px] rounded-md" src={user.photoURL}></img>
       </span>
 
-
-        <h3>Name : {user.displayName}</h3>
-        <h3>Email : {user.email}</h3>
-        <h3>Added Item : {len}</h3>
-      </div>
-    
+      <h3>Name : {user.displayName}</h3>
+      <h3>Email : {user.email}</h3>
+      <h3>Added Item : {len}</h3>
+    </div>
   );
 };
 

@@ -27,7 +27,7 @@ const Login = () => {
           role: "Make Admin",
           status: "Bronze",
         };
-        fetch(`http://localhost:5000/users`, {
+        fetch(`https://uni-meal-server.vercel.app/users`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -55,7 +55,7 @@ const Login = () => {
         role: "Make Admin",
         status: "Bronze",
       };
-      fetch(`http://localhost:5000/users`, {
+      fetch(`https://uni-meal-server.vercel.app/users`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -76,7 +76,6 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center ">
       <div className="hero min-h-screen w-[600px] flex justify-center rounded-md items-center bg-[#e2e8f0]">
-        
         <div className="hero-content flex-col">
           <div className="text-center ">
             <h1 className="text-5xl font-bold text-[#eaa334]">Login </h1>

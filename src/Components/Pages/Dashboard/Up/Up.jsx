@@ -6,7 +6,7 @@ const Up = () => {
   console.log(user);
   const [carts, setcarts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://uni-meal-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setcarts(data));
   }, []);
@@ -18,14 +18,14 @@ const Up = () => {
   console.log(jil);
   let usser = toString(user.email);
   // let id = jil._id;
-  // fetch(`http://localhost:5000/users/${usser}`, {
+  // fetch(`https://uni-meal-server.vercel.app/users/${usser}`, {
   //   method: "PUT",
   //   headers: {
   //     "content-type": "application/json",
   //   },
   //   body: JSON.stringify(members),
   // });
-//   console.log(member);
+  //   console.log(member);
   return <div></div>;
 };
 

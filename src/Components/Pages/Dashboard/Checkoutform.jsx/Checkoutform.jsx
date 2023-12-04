@@ -53,15 +53,13 @@ const CheckoutForm = (membership) => {
 
   console.log(users);
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://uni-meal-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setcarts(data));
   }, []);
 
-  
-
   console.log(members);
-  
+
   console.log(member);
   useEffect(() => {
     if (totalPrice > 0) {
@@ -100,7 +98,7 @@ const CheckoutForm = (membership) => {
       setError("");
     }
 
-    // fetch(`http://localhost:5000/users/${_id}`, {
+    // fetch(`https://uni-meal-server.vercel.app/users/${_id}`, {
     //   method: "PUT",
     //   headers: {
     //     "content-type": "application/json",
@@ -118,30 +116,30 @@ const CheckoutForm = (membership) => {
           },
         },
       });
-      const userEmail = user.email;
-      if (userEmail) {
-        const fil = users.filter((card) => card.email === userEmail);
-        console.log(fil);
+    const userEmail = user.email;
+    if (userEmail) {
+      const fil = users.filter((card) => card.email === userEmail);
+      console.log(fil);
 
-        if (fil.length > 0) {
-          const count = fil[0];
-          console.log(count);
+      if (fil.length > 0) {
+        const count = fil[0];
+        console.log(count);
 
-          const id = count._id;
-          console.log(id);
-          fetch(`http://localhost:5000/users/check/${id}`, {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(members),
-          });
-        } else {
-          console.log("No user found with the given email.");
-        }
+        const id = count._id;
+        console.log(id);
+        fetch(`https://uni-meal-server.vercel.app/users/check/${id}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(members),
+        });
       } else {
-        console.log("User email is not defined.");
+        console.log("No user found with the given email.");
       }
+    } else {
+      console.log("User email is not defined.");
+    }
     console.log("oks");
     toast(`Successfully Upgraded to ${member} `);
     if (confirmError) {

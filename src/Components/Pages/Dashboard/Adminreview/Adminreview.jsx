@@ -8,7 +8,7 @@ import Allmeal from "../../Allmeal/Allmeal";
 import Mealcart from "../Mealcart/Mealcart";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-const Allmeals = () => {
+const Adminreview = () => {
   // const [cards, setcards] = useState([]);
 
   const axiosPublic = useAxiosPublic();
@@ -16,7 +16,7 @@ const Allmeals = () => {
   const { data: meals = [], refetch } = useQuery({
     queryKey: ["meals"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/meal", {});
+      const res = await axiosPublic.get("/review", {});
 
       return res.data;
     },
@@ -34,7 +34,7 @@ const Allmeals = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/meal/${job._id}`).then((res) => {
+        axiosSecure.delete(`/review/${job._id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
@@ -66,12 +66,11 @@ const Allmeals = () => {
         <thead>
           <tr>
             <th>Meal Title</th>
-            <th>Distributor Name</th>
-            <th>Distributor Email</th>
+
             <th>Like</th>
             <th>Review</th>
             <th>Delete</th>
-            <th>Update</th>
+
             <th>Details</th>
           </tr>
         </thead>
@@ -79,8 +78,7 @@ const Allmeals = () => {
           {meals.map((job) => (
             <tr key={job._id}>
               <td className="w-[200px]">{job.name}</td>
-              <td className="w-[200px]">{job.username}</td>
-              <td className="w-[200px]">{job.useremail}</td>
+
               <td className="w-[200px]">{job.likes}</td>
               <td className="w-[200px]">{job.review}</td>
               <td className="w-[200px]">
@@ -91,12 +89,8 @@ const Allmeals = () => {
                   Delete
                 </button>
               </td>
-              <td className="w-[200px]">
-                <Link to={`/meal/update/${job._id}`}>
-                  <button className="btn btn-error">Update</button>
-                </Link>
-              </td>
-              <Link to={`/dashboard/meal/${job._id}`}>
+
+              <Link to={`/dashboard/review/${job._id}`}>
                 <td className="w-[200px]">
                   <button className="btn btn-error">Detail</button>
                 </td>
@@ -109,4 +103,4 @@ const Allmeals = () => {
   );
 };
 
-export default Allmeals;
+export default Adminreview;
